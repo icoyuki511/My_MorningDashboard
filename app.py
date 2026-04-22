@@ -1,13 +1,14 @@
 import streamlit as st
 import json
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 # 1. データの読み込み
 from pathlib import Path
 
 APP_DIR = Path(__file__).resolve().parent
 DATA_PATH = APP_DIR / "tasks.json"
-
+JST = ZoneInfo("Asia/Tokyo")
 
 def load_data():
     with DATA_PATH.open(encoding="utf-8") as f:
@@ -17,7 +18,7 @@ data = load_data()
 
 @st.fragment(run_every=30)  # 30秒ごとにこの関数だけ再実行
 def show_current_time():
-    t = datetime.now().strftime("%H:%M")
+    t = datetime.now(JST).strftime("%H:%M")
     st.metric("いまの時間", t)  # または st.markdown で大きい文字
 
 # 2. UI設定
