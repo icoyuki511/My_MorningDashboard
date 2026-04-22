@@ -24,6 +24,25 @@ def show_current_time():
 # 2. UI設定
 st.set_page_config(page_title="Morning Mission", layout="wide")
 
+st.markdown(
+    """
+    <style>
+    /* TODOチェックボックスの文字サイズを大きくする */
+    div[data-testid="stCheckbox"] label p {
+        font-size: 1.2rem !important;  /* ← ここを 1.1〜1.5 で調整 */
+        font-weight: 600 !important;
+        line-height: 1.45 !important;
+    }
+
+    /* チェックボックス本体も少し大きく見せたい場合 */
+    div[data-testid="stCheckbox"] input[type="checkbox"] {
+        transform: scale(1.15);
+        transform-origin: left center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 # 3. リセット処理用の関数
 def reset_all():
@@ -60,7 +79,7 @@ for i, (name, tasks) in enumerate(data.items()):
     with cols[i]:
         st.subheader(f"✨ {name}")
         # HTMLのdivで囲んでスクロール可能にする
-        with st.container(height=400, border=True):  # 高さは好みで
+        with st.container(height=410, border=True):  # 高さは好みで
         
             for task in tasks:
                 key = f"cb_{name}_{task}"
